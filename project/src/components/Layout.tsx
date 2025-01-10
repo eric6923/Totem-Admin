@@ -5,6 +5,10 @@ import Navbar from './Navbar';
 import Dashboard from './Dashboard';
 import EditReview from './SidebarContents/EditReview';
 import TeamMember from './SidebarContents/TeamMember';
+import Pricing from './SidebarContents/Pricing';
+import Project from './SidebarContents/Project';
+import Certificate from './SidebarContents/Certificate';
+import RecentActivity from './SidebarContents/RecentActivity';
 
 interface LayoutProps {
   darkMode: boolean;
@@ -17,7 +21,7 @@ export default function Layout({ darkMode, setDarkMode }: LayoutProps) {
 
   return (
     <>
-      {/* Overlay for mobile */}
+      
       {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-gray-800/50 z-40 lg:hidden"
@@ -46,7 +50,10 @@ export default function Layout({ darkMode, setDarkMode }: LayoutProps) {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/edit-reviews" element={<EditReview />} />
               <Route path="/add-team" element={<TeamMember />} />
-              {/* Add other routes here */}
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/new-project" element={<Project />} />
+              <Route path="/certificate" element={<Certificate />} />
+              <Route path="/recent-activity" element={<RecentActivity />} />
             </Routes>
           </div>
         </main>

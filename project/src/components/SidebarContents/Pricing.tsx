@@ -84,10 +84,10 @@ const TeamMemberComponent = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-16">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-blue-600">
-            Manage Team
+            Manage Pricing
           </h1>
           <p className="text-sm sm:text-base text-gray-600 mt-2">
-            Add, edit, or remove team members
+            Add, edit, or remove Pricing Details
           </p>
         </div>
         <button
@@ -95,7 +95,7 @@ const TeamMemberComponent = () => {
           className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
         >
           <Plus className="w-5 h-5" />
-          Add Member
+          Add Catalogue
         </button>
       </div>
 
@@ -161,7 +161,7 @@ const TeamMemberComponent = () => {
                   htmlFor="name"
                   className="block text-sm font-medium text-blue-300 mb-2"
                 >
-                  Name
+                  Course Name
                 </label>
                 <input
                   id="name"
@@ -170,7 +170,7 @@ const TeamMemberComponent = () => {
                   onChange={(e) =>
                     setNewMember({ ...newMember, name: e.target.value })
                   }
-                  placeholder="Enter member's name"
+                  placeholder="Enter Course name"
                 />
               </div>
               <div>
@@ -178,7 +178,7 @@ const TeamMemberComponent = () => {
                   htmlFor="role"
                   className="block text-sm font-medium text-blue-300 mb-2"
                 >
-                  Role
+                  Duration
                 </label>
                 <input
                   id="role"
@@ -187,7 +187,7 @@ const TeamMemberComponent = () => {
                   onChange={(e) =>
                     setNewMember({ ...newMember, role: e.target.value })
                   }
-                  placeholder="Enter member's role"
+                  placeholder="Enter Duration"
                 />
               </div>
               <div>
@@ -195,7 +195,7 @@ const TeamMemberComponent = () => {
                   htmlFor="imageUrl"
                   className="block text-sm font-medium text-blue-300 mb-2"
                 >
-                  Image URL
+                  Price
                 </label>
                 <input
                   id="imageUrl"
@@ -204,7 +204,7 @@ const TeamMemberComponent = () => {
                   onChange={(e) =>
                     setNewMember({ ...newMember, imageUrl: e.target.value })
                   }
-                  placeholder="Enter member's image URL"
+                  placeholder="Enter Price Amount"
                 />
               </div>
               <div className="flex justify-end gap-4 mt-8">

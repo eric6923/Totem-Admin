@@ -3,6 +3,7 @@ import { Pencil, Trash2, Plus, X } from 'lucide-react';
 import r1 from '../assets/r1.png'
 import r2 from '../assets/r2.png'
 import r3 from '../assets/r3.png'
+import { useDropzone } from 'react-dropzone';
 
 interface Review {
   id: number;
@@ -94,6 +95,16 @@ const EditReview: React.FC = () => {
     });
     setEditingReview(null);
   };
+  const onDrop = (acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setNewReview({ ...newReview, image: reader.result as string });
+    };
+    reader.readAsDataURL(file);
+  };
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
 
   return (
     <div className="p-4 sm:p-6 max-w-7xl mx-auto bg-black/5">
@@ -185,17 +196,28 @@ const EditReview: React.FC = () => {
                 />
               </div>
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-blue-300 mb-2">
-                  Image URL
-                </label>
-                <input
-                  id="name"
-                  className="w-full px-4 py-3 bg-black/50 text-white rounded-lg border border-blue-900 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
-                  value={newReview.image}
-                  onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                  placeholder="Enter reviewer's name"
-                />
-              </div>
+      <label className="block text-sm font-medium text-blue-300 mb-2">
+        Upload Image
+      </label>
+      <div
+        {...getRootProps()}
+        className="w-full px-4 py-6 bg-black/50 text-white rounded-lg border border-dashed border-blue-900 hover:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center cursor-pointer"
+      >
+        <input {...getInputProps()} />
+        <p className="text-sm text-blue-300">
+          Drag & drop an image here, or <span className="text-blue-500 underline">click to select</span>
+        </p>
+      </div>
+      {/* {newReview.image && (
+        <div className="mt-4">
+          <img
+            src={newReview.image}
+            alt="Preview"
+            className="w-20 h-20 rounded-lg border border-blue-900"
+          />
+        </div>
+      )} */}
+    </div>
               <div className="flex justify-end gap-4 mt-8">
                 <button
                   onClick={() => setIsModalOpen(false)}
