@@ -18,7 +18,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="pt-24 px-4 md:px-6 lg:px-8 xl:px-12 pb-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <main className=" px-4 md:px-6 lg:px-8 xl:px-12 pb-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="max-w-screen-2xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
           <div>

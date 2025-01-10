@@ -1,4 +1,5 @@
-import profile from './assets/profile.png'
+import { Link, useNavigate } from 'react-router-dom';
+import profile from './assets/profile.png';
 import {
   LayoutDashboard,
   Edit,
@@ -14,17 +15,18 @@ import {
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
-  activeSection: string;
-  setActiveSection: (section: string) => void;
+  currentPath: string;
 }
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen, activeSection, setActiveSection }: SidebarProps) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen, currentPath }: SidebarProps) {
+  const navigate = useNavigate();
+
   const quickActions = [
-    { icon: <Edit size={20} />, text: 'Edit Reviews' },
-    { icon: <UserPlus size={20} />, text: 'Add Team Member' },
-    { icon: <DollarSign size={20} />, text: 'Update Pricing' },
-    { icon: <FolderPlus size={20} />, text: 'Add New Project' },
-    { icon: <Award size={20} />, text: 'Generate Certificate' },
+    { icon: <Edit size={20} />, text: 'Edit Reviews', path: '/edit-reviews' },
+    { icon: <UserPlus size={20} />, text: 'Add Team Member', path: '/add-team' },
+    { icon: <DollarSign size={20} />, text: 'Update Pricing', path: '/pricing' },
+    { icon: <FolderPlus size={20} />, text: 'Add New Project', path: '/new-project' },
+    { icon: <Award size={20} />, text: 'Generate Certificate', path: '/certificate' },
   ];
 
   return (
@@ -34,11 +36,10 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, activeSection, se
         w-[280px] shadow-lg z-50`}
     >
       <div className="flex items-center justify-between p-6 h-16 mt-6">
-        <div className="flex items-center">
-          <img className ="h-7 w-6"src={profile} alt="" />
+        <Link to="/dashboard" className="flex items-center">
+          <img className="h-7 w-6" src={profile} alt="" />
           <span className="ml-3 text-xl font-bold text-blue-600">Totem Admin</span>
-        </div>
-        {/* Close button for mobile */}
+        </Link>
         <button 
           onClick={() => setSidebarOpen(false)}
           className="lg:hidden text-gray-500 hover:text-gray-700"
@@ -49,20 +50,18 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, activeSection, se
 
       <nav className="mt-8 px-4">
         {/* Dashboard */}
-        <button
-          onClick={() => {
-            setActiveSection('dashboard');
-            setSidebarOpen(false);
-          }}
+        <Link
+          to="/dashboard"
           className={`flex items-center w-full p-3 rounded-lg transition-colors mb-6 ${
-            activeSection === 'dashboard'
+            currentPath === '/dashboard'
               ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
               : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'
           }`}
+          onClick={() => setSidebarOpen(false)}
         >
           <LayoutDashboard size={20} />
           <span className="ml-3 font-medium">Dashboard</span>
-        </button>
+        </Link>
 
         {/* Quick Actions Section */}
         <div className="mb-3 px-3">
@@ -71,63 +70,64 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, activeSection, se
           </h2>
         </div>
         <div className="space-y-1">
-          {quickActions.map((action, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setActiveSection(action.text.toLowerCase().replace(/\s+/g, '-'));
-                setSidebarOpen(false);
-              }}
+          {quickActions.map((action) => (
+            <Link
+              key={action.path}
+              to={action.path}
               className={`flex items-center w-full p-3 rounded-lg transition-colors ${
-                activeSection === action.text.toLowerCase().replace(/\s+/g, '-')
+                currentPath === action.path
                   ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
                   : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'
               }`}
+              onClick={() => setSidebarOpen(false)}
             >
               {action.icon}
               <span className="ml-3">{action.text}</span>
-            </button>
+            </Link>
           ))}
         </div>
 
         {/* Recent Activity */}
-        <button
-          onClick={() => {
-            setActiveSection('recent-activity');
-            setSidebarOpen(false);
-          }}
+        <Link
+          to="/recent-activity"
           className={`flex items-center w-full p-3 rounded-lg transition-colors mt-6 ${
-            activeSection === 'recent-activity'
+            currentPath === '/recent-activity'
               ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
               : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'
           }`}
+          onClick={() => setSidebarOpen(false)}
         >
           <Award size={20} />
           <span className="ml-3">Recent Activity</span>
-        </button>
+        </Link>
 
         {/* Website Preview */}
-        <button
-          onClick={() => {
-            setActiveSection('website-preview');
-            setSidebarOpen(false);
-          }}
+        <Link
+          to="/website-preview"
           className={`flex items-center w-full p-3 rounded-lg transition-colors ${
-            activeSection === 'website-preview'
+            currentPath === '/website-preview'
               ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
               : 'text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700'
           }`}
+          onClick={() => setSidebarOpen(false)}
         >
           <LayoutDashboard size={20} />
           <span className="ml-3">Website Preview</span>
-        </button>
+        </Link>
 
-        <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-          <button className="flex items-center w-full p-3 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg">
+        {/* Bottom Actions */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
+          <button 
+            onClick={() => navigate('/settings')}
+            className="flex items-center w-full p-3 text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg"
+          >
             <Settings size={20} />
             <span className="ml-3">Settings</span>
           </button>
-          <button className="flex items-center w-full p-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg">
+          <button 
+            onClick={() => {/* Handle logout */}}
+            className="flex items-center w-full p-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+          >
             <LogOut size={20} />
             <span className="ml-3">Logout</span>
           </button>
