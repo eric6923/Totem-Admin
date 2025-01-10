@@ -29,10 +29,12 @@ export default function Dashboard() {
               <span className="text-blue-600">Overview</span>
             </div>
           </div>
-          <button className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 w-full lg:w-auto transition-colors">
-            <Download size={20} className="mr-2" />
-            Download Report
-          </button>
+          <div className="flex justify-center lg:justify-end">
+            <button className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 max-w-[200px] w-full lg:w-auto transition-colors">
+              <Download size={20} className="mr-2" />
+              Download Report
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 mb-10">
@@ -84,46 +86,73 @@ export default function Dashboard() {
                 </button>
               </div>
             </div>
-            <div className="overflow-x-auto -mx-6">
-              <div className="inline-block min-w-full align-middle px-6">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="text-left text-sm text-gray-500 dark:text-gray-400 border-b dark:border-gray-700">
-                      <th className="pb-4">Team</th>
-                      <th className="pb-4">Date</th>
-                      <th className="pb-4">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentOrders.map((order, index) => (
-                      <tr key={index} className="border-b dark:border-gray-700 last:border-0">
-                        <td className="py-4">
-                          <div className="flex items-center">
-                            <img
-                              src={`https://i.pravatar.cc/150?img=${index + 1}`}
-                              alt={order.user}
-                              className="h-10 w-10 rounded-full mr-4"
-                            />
-                            <span className="text-base text-gray-800 dark:text-gray-200">{order.user}</span>
-                          </div>
-                        </td>
-                        <td className="py-4 text-base text-gray-500 dark:text-gray-400">{order.date}</td>
-                        <td className="py-4">
-                          <span className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
-                            order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                            order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-blue-100 text-blue-800'
-                          }`}>
-                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <div className="block lg:overflow-x-auto lg:-mx-6">
+  <div className="lg:inline-block lg:min-w-full lg:align-middle lg:px-6">
+    {/* Mobile View */}
+    <div className="block lg:hidden">
+      {recentOrders.map((order, index) => (
+        <div key={index} className="mb-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+          <div className="flex items-center mb-3">
+            <img
+              src={`https://i.pravatar.cc/150?img=${index + 1}`}
+              alt={order.user}
+              className="h-10 w-10 rounded-full mr-4"
+            />
+            <span className="text-base text-gray-800 dark:text-gray-200">{order.user}</span>
           </div>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-500 dark:text-gray-400">{order.date}</span>
+            <span className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+              order.status === 'completed' ? 'bg-green-100 text-green-800' :
+              order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-blue-100 text-blue-800'
+            }`}>
+              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Desktop View */}
+    <table className="hidden lg:table min-w-full">
+      <thead>
+        <tr className="text-left text-sm text-gray-500 dark:text-gray-400 border-b dark:border-gray-700">
+          <th className="pb-4">Team</th>
+          <th className="pb-4">Date</th>
+          <th className="pb-4">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {recentOrders.map((order, index) => (
+          <tr key={index} className="border-b dark:border-gray-700 last:border-0">
+            <td className="py-4">
+              <div className="flex items-center">
+                <img
+                  src={`https://i.pravatar.cc/150?img=${index + 1}`}
+                  alt={order.user}
+                  className="h-10 w-10 rounded-full mr-4"
+                />
+                <span className="text-base text-gray-800 dark:text-gray-200">{order.user}</span>
+              </div>
+            </td>
+            <td className="py-4 text-base text-gray-500 dark:text-gray-400">{order.date}</td>
+            <td className="py-4">
+              <span className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+                order.status === 'completed' ? 'bg-green-100 text-green-800' :
+                order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-blue-100 text-blue-800'
+              }`}>
+                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
             <div className="flex items-center justify-between mb-8">

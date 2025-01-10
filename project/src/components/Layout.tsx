@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import Dashboard from './Dashboard';
 import EditReview from './SidebarContents/EditReview';
+import TeamMember from './SidebarContents/TeamMember';
 
 interface LayoutProps {
   darkMode: boolean;
@@ -44,6 +45,7 @@ export default function Layout({ darkMode, setDarkMode }: LayoutProps) {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/edit-reviews" element={<EditReview />} />
+              <Route path="/add-team" element={<TeamMember />} />
               {/* Add other routes here */}
             </Routes>
           </div>
